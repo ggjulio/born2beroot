@@ -1,20 +1,44 @@
 #!/usr/bin/env bash
 
-# Mush be executed as root cause lvdisplay command used
+# Must be executed as root cause lvdisplay, pvs is command used
 
 set -eo pipefail
 
-get_mem_usage(){
-	echo $(free -h | grep 'Mem:' | awk '{printf "%s /%s (%.0f%% used)", $3, $2, $3/$2*100}')
+DEVICE='sda2'
+
+is_lvm_used(){
+	n="$(lvdisplay 2> /dev/null | wc -l || true)"
+	if [ "$n" = "0" ]; then
+		echo "no"
+	else
+		echo "yes"
+	fi
 }
+
+get_mem_usage(){
+	echo "$(free -h | grep 'Mem:' | awk '{printf "%s /%s (%.0f%% used)", $3, $2, $3/$2*100}')"
+}
+
 get_disk_usage(){
-	echo $(df -h | grep '/dev/sda2' | awk '{printf "%s /%s (%s used)", $3, $2, $5}')
+	local result=""
+
+	if [ "$(is_lvm_used)" = "no" ]; then
+		result=$(df -h | grep "/dev/$DEVICE" | awk '{printf "%s /%s (%s used)", $3, $2, $5}')
+	else
+		pv=$(pvs --units G --options pv_name,pv_used,pv_size | grep mapper | awk '{printf "%s -> %s / %s (%.0f%% used)", $1, $2, $3, $2 /$3 * 100}')
+		filesystems=$(lsblk -o 'NAME,MOUNTPOINT,FSUSED,FSSIZE,FSUSE%,SIZE' | grep -e 'LVM' -e NAME | awk '{print "\t"$0}')
+		result="\n\tPV: $pv\n$filesystems"
+	fi
+
+	#pvs --units G --options pv_name,pv_used,pv_free
+	#lsblk -o 'NAME,SIZE,FSSIZE,MOUNTPOINT,FSAVAIL,FSAVAIL,FSUSED,FSUSE%'
+	echo -e "$result"
 }
 
 get_networks(){
 	local result=""
-
 	local list_active_interface="$(ip addr | awk '/state UP/ {print $2}')"
+	
 	i=$(echo "$list_active_interface" | wc -l)
 	if [ "$i" = "0" ]; then
 		result='#Network: No active interface'
@@ -29,13 +53,10 @@ get_networks(){
 	echo "$result"
 }
 
-is_lvm_used(){
-	n="$(lvdisplay 2> /dev/null | wc -l || true)"
-	if [ "$n" = "0" ]; then
-		echo "no"
-	else
-		echo "yes"
-	fi
+get_cpu_usage(){
+	local cpu=$(cat  /proc/stat | grep "cpu " | awk '{$1=""; print}')
+	local idle=
+
 }
 
 get_report(){
@@ -44,12 +65,12 @@ get_report(){
 	#Architechture: $(uname -a)
 	#Physical CPU core: $(nproc)
 	#Virtual  CPU core:
-	#Memory  usage: $(get_mem_usage)
-	#Disk    usage: $(get_disk_usage)
 	#CPU  load:
-	#Last boot: $(who -b | awk '{printf "%s %s", $3, $4}')
+	#Memory usage: $(get_mem_usage)
+	#LVM  enabled: $(is_lvm_used)
+	#Disk   usage: $(get_disk_usage)
 	#User log : $(users | wc -w) users currently logged
-	#LVM  use : $(is_lvm_used)
+	#Last boot: $(who -b | awk '{$1=$1; print}' | cut -d ' ' -f 3-)
 	#Connections TCP: $(ss -s | grep estab | awk '{printf "%d ESTABLISHED", $4}')
 	#Total log sudo : $(ls /var/log/sudo/00/00/ | wc -w) commands
 	#Active Interfaces:$(get_networks)

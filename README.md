@@ -69,6 +69,9 @@ PASS_MAX_DAYS	30
 - https://wiki.debian.org/sudo
 - https://www.tecmint.com/sudoers-configurations-for-setting-sudo-in-linux/
 - https://stackoverflow.com/questions/12973777/how-to-run-a-shell-script-at-startup
+- https://stackoverflow.com/questions/1332861/how-can-i-determine-the-current-cpu-utilization-from-the-shell
+- https://www.linuxhowtos.org/System/procstat.htm
+- https://rosettacode.org/wiki/Linux_CPU_utilization
 ### visudo:
  authfail_message
  badpass_message
