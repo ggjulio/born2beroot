@@ -21,20 +21,19 @@
 - [ ] install sudo following strict rules.
 	- [x] set up 3 attempts  
 	- [x] set up custom message when wrong password
-	- [ ] each action using sudo must be archived
-		- [ ] both inputs and outputs
-		- [ ] saved in /var/log/sudo/
+	- [x] each action using sudo must be archived
+		- [x] both inputs and outputs
+		- [x] saved in /var/log/sudo/
 - [x] add a user with my login as username
 	- [x] This user nedd to belong to both groups: user42 + sudo
-- [ ] TTY mode need to be enabled
-- [ ] All paths used by sudo must be restricted. Examples :
-	- [ ] /usr/local/sbin
-	- [ ] /usr/local/bin
-	- [ ] /usr/sbin
-	- [ ] /usr/bin
-	- [ ] /sbin
-	- [ ] /bin
-	- [ ] /snap/bin
+- [x] TTY mode need to be enabled
+- [x] All paths used by sudo must be restricted. Examples :
+	- [x] /usr/local/sbin
+	- [x] /usr/local/bin
+	- [x] /usr/sbin
+	- [x] /usr/bin
+	- [x] /sbin
+	- [x] /bin
 - [ ] Create a simple script `monitoring.sh` in bash
 	- [ ] At startup: output few infos  every 5min (look at wall).
 		- [ ] No error must be visible
@@ -69,9 +68,23 @@ PASS_MAX_DAYS	30
 - https://www.debian.org/doc/manuals/securing-debian-manual/ch04s11.en.html
 - https://wiki.debian.org/sudo
 - https://www.tecmint.com/sudoers-configurations-for-setting-sudo-in-linux/
-
+- https://stackoverflow.com/questions/12973777/how-to-run-a-shell-script-at-startup
 ### visudo:
  authfail_message
  badpass_message
  iolog_dir ???
  iolog_file
+
+
+
+#CPU physical : 1
+#vCPU physical : 1
+#Memory Usage: 74/987MB (7.50%)
+#Disk Usage: 1009/2Gb (39%)
+#CPU load: 6.7%
+#Last boot: 2021-04-25 14:45
+#LVM use: yes
+#Connexions TCP : 1 ESTABLISHED
+#User log: 1
+#Network: IP 10.0.2.15 (08:00:27:51:9b:a5)
+#Sudo : 42 cmd
