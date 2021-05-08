@@ -1,3 +1,17 @@
+### credentials
+- partition encryption: qwerty
+- user unix:
+	- root: qwerty
+	- juligonz: qwerty
+	- user1: qwertyu
+
+- mysql users:
+	- root: qwerty 
+	- wordpress: wordpress
+
+- wordpress users:
+	- juligonz: 2g!lWVnvfWF7*VWe36
+
 ### Todo
 
 - [x] 2 encrypted partitions root and home
@@ -50,13 +64,13 @@
 		- [x] Number of users using the server
 		- [x] IPv4 and MAC address of the server
 		- [x] Number of commands executed with sudo program
-	- [ ] You will also have to interrupt it without modifying it.		
-	- [ ] Have a look at cron
+	- [x] You will also have to interrupt it without modifying it.		
+	- [x] Have a look at cron
 
 ### Bonus part 
 - [x] set up partitions with separation: / , home, var, srv, tmp, var/log
 	- [x] ALL ENCRYPTED and of type lvm
-- [ ] Set up functionnal wordpress using lighttpd, mariaDB, and php
+- [x] Set up functionnal wordpress using lighttpd, mariaDB, and php
 - [ ] set up a service of our choice (nginx, apache2 excluded)
 
 
@@ -75,6 +89,9 @@ PASS_MAX_DAYS	30
 - https://rosettacode.org/wiki/Linux_CPU_utilization
 - https://www.datacenters.com/news/what-is-a-vcpu-and-how-do-you-calculate-vcpu-to-cpu
 - https://crontab.guru/tips.html
+- https://doc.ubuntu-fr.org/cron
+- https://myshell.co.uk/blog/2012/07/how-to-determine-the-number-of-physical-cpus-on-linux/
+- https://stackoverflow.com/questions/4270280/linux-and-physical-and-virtual-cpus
 ### visudo:
  authfail_message
  badpass_message
@@ -98,7 +115,5 @@ PASS_MAX_DAYS	30
 PB:
 - vcpu
 - cron job start time
-- execute script root ?
+- execute the script using the root crontab ok ?
 - not exact same output script
-- script is pushed ?
-- correction pc corrige ?

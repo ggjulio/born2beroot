@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-# Must be executed as root cause lvdisplay, pvs is command used
+# Must be executed as root cause lvdisplay, pvs commands are used
 
 set -eo pipefail
 
-DEVICE='sda2'
+DEVICE_DISK='sda2'
 
 is_lvm_used(){
 	n="$(lvdisplay 2> /dev/null | wc -l || true)"
@@ -23,15 +23,13 @@ get_disk_usage(){
 	local result=""
 
 	if [ "$(is_lvm_used)" = "no" ]; then
-		result=$(df -h | grep "/dev/$DEVICE" | awk '{printf "%s /%s (%s used)", $3, $2, $5}')
+		result=$(df -h | grep "/dev/$DEVICE_DISK" | awk '{printf "%s /%s (%s used)", $3, $2, $5}')
 	else
 		pv=$(pvs --units G --options pv_name,pv_used,pv_size | grep mapper | awk '{printf "%s -> %s / %s (%.0f%% used)", $1, $2, $3, $2 /$3 * 100}')
-		filesystems=$(lsblk -o 'NAME,MOUNTPOINT,FSUSED,FSSIZE,FSUSE%,SIZE' | grep -e 'LVM' -e NAME | awk '{print "\t"$0}')
-		result="\n\tPV: $pv\n$filesystems"
+		filesystems=$(lsblk -o 'MOUNTPOINT,FSUSED,FSSIZE,FSUSE%,SIZE,NAME' | grep -e 'LVM' -e NAME | awk '{print "\t"$0}')
+		filesystems_ascii=$(echo "$filesystems" | tr -cd '\11\12\15\40-\176')
+		result="\n\tPV: $pv\n$filesystems_ascii"
 	fi
-
-	#pvs --units G --options pv_name,pv_used,pv_free
-	#lsblk -o 'NAME,SIZE,FSSIZE,MOUNTPOINT,FSAVAIL,FSAVAIL,FSUSED,FSUSE%'
 	echo -e "$result"
 }
 
@@ -79,7 +77,9 @@ main(){
 		echo "$0 : Error - script must be executed as root"
 		exit 1
 	fi
-	wall "$(get_report)"
+	local report="$(get_report)"
+
+	echo "$report" | wall
 }
 
 main "$@"
