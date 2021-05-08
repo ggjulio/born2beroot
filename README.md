@@ -2,7 +2,7 @@
 
 - [x] 2 encrypted partitions root and home
 	- [x] or bonus...
-- [ ] AppArmor must run at startup 
+- [x] AppArmor must run at startup 
 - [x] ssh on port 4242
 	- [x] root disabled via ssh
 	- [x] open firewall port (using firewall UFW)
@@ -18,7 +18,7 @@
 	- [ ] minimum number of days before modification set to 2 days
 	- [ ] user need to a warning 7 days before password expires.
 	- [ ] root password has to comply with this policy too.
-- [ ] install sudo following strict rules.
+- [x] install sudo following strict rules.
 	- [x] set up 3 attempts  
 	- [x] set up custom message when wrong password
 	- [x] each action using sudo must be archived
@@ -34,23 +34,24 @@
 	- [x] /usr/bin
 	- [x] /sbin
 	- [x] /bin
-- [ ] Create a simple script `monitoring.sh` in bash
-	- [ ] At startup: output few infos  every 5min (look at wall).
-		- [ ] No error must be visible
-	- [ ] must always display:
-		- [ ] Architecture of OS + kernel version
-		- [ ] Number of physical core
+- [x] Create a simple script `monitoring.sh` in bash
+	- [x] At startup: output few infos  every 5min (look at wall).
+		- [x] No error must be visible
+	- [x] must always display:
+		- [x] Architecture of OS + kernel version
+		- [x] Number of physical core
 		- [ ] Number of virtual core
-		- [ ] Available RAM and utilisation rate in %
-		- [ ] Available memory and utilisation rate in %
+		- [x] Available RAM and utilisation rate in %
+		- [x] Available memory and utilisation rate in %
 		- [ ] Processors utilisation rate in %
-		- [ ] Date and time of last reboot
-		- [ ] LVM is active or not
-		- [ ] Number of active connections
-		- [ ] Number of users using the server
-		- [ ] IPv4 and MAC address of the server
-		- [ ] Number of commands executed with sudo program
-	- [ ] You will also have to interrupt it without modifying it.		- [ ] Have a look at cron
+		- [x] Date and time of last reboot
+		- [x] LVM is active or not
+		- [x] Number of active connections
+		- [x] Number of users using the server
+		- [x] IPv4 and MAC address of the server
+		- [x] Number of commands executed with sudo program
+	- [ ] You will also have to interrupt it without modifying it.		
+	- [ ] Have a look at cron
 
 ### Bonus part 
 - [x] set up partitions with separation: / , home, var, srv, tmp, var/log
@@ -72,6 +73,7 @@ PASS_MAX_DAYS	30
 - https://stackoverflow.com/questions/1332861/how-can-i-determine-the-current-cpu-utilization-from-the-shell
 - https://www.linuxhowtos.org/System/procstat.htm
 - https://rosettacode.org/wiki/Linux_CPU_utilization
+- https://www.datacenters.com/news/what-is-a-vcpu-and-how-do-you-calculate-vcpu-to-cpu
 ### visudo:
  authfail_message
  badpass_message

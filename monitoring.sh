@@ -53,19 +53,13 @@ get_networks(){
 	echo "$result"
 }
 
-get_cpu_usage(){
-	local cpu=$(cat  /proc/stat | grep "cpu " | awk '{$1=""; print}')
-	local idle=
-
-}
-
 get_report(){
 	local report=
 	read -r -d '' report <<-EOF || true 
 	#Architechture: $(uname -a)
-	#Physical CPU core: $(nproc)
-	#Virtual  CPU core:
-	#CPU  load:
+	#Physical CPU: $(nproc)
+	#Virtual  CPU:
+	#CPU  load: $(mpstat | grep all | awk '{printf "%s%%", $3}')
 	#Memory usage: $(get_mem_usage)
 	#LVM  enabled: $(is_lvm_used)
 	#Disk   usage: $(get_disk_usage)
