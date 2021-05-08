@@ -74,6 +74,7 @@ PASS_MAX_DAYS	30
 - https://www.linuxhowtos.org/System/procstat.htm
 - https://rosettacode.org/wiki/Linux_CPU_utilization
 - https://www.datacenters.com/news/what-is-a-vcpu-and-how-do-you-calculate-vcpu-to-cpu
+- https://crontab.guru/tips.html
 ### visudo:
  authfail_message
  badpass_message
@@ -93,3 +94,11 @@ PASS_MAX_DAYS	30
 #User log: 1
 #Network: IP 10.0.2.15 (08:00:27:51:9b:a5)
 #Sudo : 42 cmd
+
+PB:
+- vcpu
+- cron job start time
+- execute script root ?
+- not exact same output script
+- script is pushed ?
+- correction pc corrige ?

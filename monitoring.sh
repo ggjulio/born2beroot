@@ -57,8 +57,9 @@ get_report(){
 	local report=
 	read -r -d '' report <<-EOF || true 
 	#Architechture: $(uname -a)
-	#Physical CPU: $(nproc)
-	#Virtual  CPU:
+	#Physical CPU: $(cat /proc/cpuinfo | grep "physical id" | sort | uniq | wc -l)
+	#Virtual  CPU: $(cat /proc/cpuinfo | grep "^processor")
+	#Number of cores: $(cat /proc/cpuinfo | grep "cpu cores" | uniq)
 	#CPU  load: $(mpstat | grep all | awk '{printf "%s%%", $3}')
 	#Memory usage: $(get_mem_usage)
 	#LVM  enabled: $(is_lvm_used)
@@ -66,7 +67,7 @@ get_report(){
 	#User log : $(users | wc -w) users currently logged
 	#Last boot: $(who -b | awk '{$1=$1; print}' | cut -d ' ' -f 3-)
 	#Connections TCP: $(ss -s | grep estab | awk '{printf "%d ESTABLISHED", $4}')
-	#Total log sudo : $(ls /var/log/sudo/00/00/ | wc -w) commands
+	#Total log sudo : $(ls /var/log/sudo/00/00/ 2> /dev/null | wc -w) commands
 	#Active Interfaces:$(get_networks)
 	EOF
 
@@ -78,11 +79,7 @@ main(){
 		echo "$0 : Error - script must be executed as root"
 		exit 1
 	fi
-	while [ true ]; do
-		echo "$(get_report)"
-		exit
-		sleep $((5 * 60))
-	done
+	wall "$(get_report)"
 }
 
 main "$@"
