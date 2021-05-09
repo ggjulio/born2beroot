@@ -76,11 +76,7 @@
 - [x] set up a service of our choice (nginx, apache2 excluded)
 	- [x] service dns 
 
-### password policy conf /etc/login.defs
-
-PASS_MAX_DAYS	30
-
-
+### ref
 - https://techencyclopedia.wordpress.com/2020/04/21/debian-10-manual-partition-for-boot-swap-root-home-tmp-srv-var-var-mail-var-log/
 - https://www.debian.org/doc/manuals/securing-debian-manual/ch04s11.en.html
 - https://wiki.debian.org/sudo
@@ -101,28 +97,17 @@ PASS_MAX_DAYS	30
 - https://www.debian.org/doc/manuals/securing-debian-manual/ch04s11.en.html
 - https://debian-facile.org/doc:securite:passwd:libpam-pwquality
 - http://shekel.jct.ac.il/~roman/linux/pam/pam-list.html
+
+### wall: cannot get tty name: Inappropriate ioctl for device (cat /etc/mail/login)
+- https://bugzilla.redhat.com/show_bug.cgi?id=1608176
+- https://forums.fedoraforum.org/showthread.php?303093-upsmon-wall-cannot-get-tty-name
+- https://serverfault.com/questions/814769/how-to-silently-broadcast-a-warning-from-a-cronjob-via-wall
 ### visudo:
  authfail_message
  badpass_message
  iolog_dir ???
  iolog_file
 
-
-
-#CPU physical : 1
-#vCPU physical : 1
-#Memory Usage: 74/987MB (7.50%)
-#Disk Usage: 1009/2Gb (39%)
-#CPU load: 6.7%
-#Last boot: 2021-04-25 14:45
-#LVM use: yes
-#Connexions TCP : 1 ESTABLISHED
-#User log: 1
-#Network: IP 10.0.2.15 (08:00:27:51:9b:a5)
-#Sudo : 42 cmd
-
 PB:
 - vcpu
-- cron job start time
-- not exact same output script
 - add seq to sudo count ! (maxseq...)

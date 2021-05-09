@@ -25,7 +25,7 @@ get_disk_usage(){
 	if [ "$(is_lvm_used)" = "no" ]; then
 		result=$(df -h | grep "/dev/$DEVICE_DISK" | awk '{printf "%s /%s (%s used)", $3, $2, $5}')
 	else
-		pv=$(pvs --units G --options pv_name,pv_used,pv_size | grep mapper | awk '{printf "%s -> %s / %s (%.0f%% used)", $1, $2, $3, $2 /$3 * 100}')
+		pv=$(/usr/sbin/pvs --units G --options pv_name,pv_used,pv_size | grep mapper | awk '{printf "%s -> %s / %s (%.0f%% used)", $1, $2, $3, $2 /$3 * 100}')
 		filesystems=$(lsblk -o 'MOUNTPOINT,FSUSED,FSSIZE,FSUSE%,SIZE,NAME' | grep -e 'LVM' -e NAME | awk '{print "\t"$0}')
 		filesystems_ascii=$(echo "$filesystems" | tr -cd '\11\12\15\40-\176')
 		result="\n\tPV: $pv\n$filesystems_ascii"
@@ -65,7 +65,7 @@ get_report(){
 	#User log : $(users | wc -w) users currently logged
 	#Last boot: $(who -b | awk '{$1=$1; print}' | cut -d ' ' -f 3-)
 	#Connections TCP: $(ss -s | grep estab | awk '{printf "%d ESTABLISHED", $4}')
-	#Total log sudo : $(ls /var/log/sudo/00/00/ 2> /dev/null | wc -w) commands ($((16#"$(sudo cat /var/log/sudo/seq)")) seq)
+	#Log sudo : $(ls /var/log/sudo/00/00/ 2> /dev/null | wc -w) commands ($((36#"$(cat /var/log/sudo/seq)")) seq)
 	#Active Interfaces:$(get_networks)
 	EOF
 
@@ -79,7 +79,7 @@ main(){
 	fi
 	local report="$(get_report)"
 
-	echo "$report" 
+	echo "$report" | wall
 }
 
 main "$@"
