@@ -4,10 +4,10 @@
 
 set -eo pipefail
 
-DEVICE_DISK='sda2'
+DEVICE_DISK='sda5'
 
 is_lvm_used(){
-	n="$(lvdisplay 2> /dev/null | wc -l || true)"
+	n="$(/usr/sbin/lvdisplay 2> /dev/null | wc -l || true)"
 	if [ "$n" = "0" ]; then
 		echo "no"
 	else
@@ -56,7 +56,7 @@ get_report(){
 	read -r -d '' report <<-EOF || true 
 	#Architechture: $(uname -a)
 	#Physical CPU: $(cat /proc/cpuinfo | grep "physical id" | sort | uniq | wc -l)
-	#Virtual  CPU: $(cat /proc/cpuinfo | grep "^processor")
+	#Virtual  CPU: $(cat /proc/cpuinfo | grep "^processor" | wc -l)
 	#Number of cores: $(cat /proc/cpuinfo | grep "cpu cores" | uniq)
 	#CPU  load: $(mpstat | grep all | awk '{printf "%s%%", $3}')
 	#Memory usage: $(get_mem_usage)
@@ -65,7 +65,7 @@ get_report(){
 	#User log : $(users | wc -w) users currently logged
 	#Last boot: $(who -b | awk '{$1=$1; print}' | cut -d ' ' -f 3-)
 	#Connections TCP: $(ss -s | grep estab | awk '{printf "%d ESTABLISHED", $4}')
-	#Total log sudo : $(ls /var/log/sudo/00/00/ 2> /dev/null | wc -w) commands
+	#Total log sudo : $(ls /var/log/sudo/00/00/ 2> /dev/null | wc -w) commands ($((16#"$(sudo cat /var/log/sudo/seq)")) seq)
 	#Active Interfaces:$(get_networks)
 	EOF
 
@@ -79,7 +79,7 @@ main(){
 	fi
 	local report="$(get_report)"
 
-	echo "$report" | wall
+	echo "$report" 
 }
 
 main "$@"
