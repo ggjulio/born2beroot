@@ -51,7 +51,7 @@
 - [x] add a user with my login as username
 	- [x] This user nedd to belong to both groups: user42 + sudo
 - [x] Create a simple script `monitoring.sh` in bash
-	- [x] At startup: output few infos  every 5min (look at wall).
+	- [x] Output few infos  every 5min (wall + cron).
 		- [x] No error must be visible
 	- [x] must always display:
 		- [x] Architecture of OS + kernel version
@@ -66,8 +66,7 @@
 		- [x] Number of users using the server
 		- [x] IPv4 and MAC address of the server
 		- [x] Number of commands executed with sudo program
-	- [x] You will also have to interrupt it without modifying it.		
-	- [x] Have a look at cron
+	- [x] You will also have to interrupt it without modifying it.
 
 ### Bonus part 
 - [x] set up partitions with separation: / , home, var, srv, tmp, var/log
