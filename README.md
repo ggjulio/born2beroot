@@ -56,7 +56,7 @@
 	- [x] must always display:
 		- [x] Architecture of OS + kernel version
 		- [x] Number of physical core
-		- [ ] Number of virtual core
+		- [x] Number of virtual core
 		- [x] Available RAM and utilisation rate in %
 		- [x] Available memory and utilisation rate in %
 		- [x] Processors utilisation rate in %
