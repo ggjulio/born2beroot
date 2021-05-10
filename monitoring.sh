@@ -77,6 +77,7 @@ get_report(){
 	# User log : $(users | wc -w) users currently logged
 	# Last boot: $(who -b | awk '{$1=$1; print}' | cut -d ' ' -f 3-)
 	# Connections TCP: $(ss -s | grep estab | awk '{printf "%d ESTABLISHED", $4}')
+	# Log sudo : $(ls /var/log/sudo/00/00/ 2> /dev/null | wc -w) commands ($((36#"$(cat /var/log/sudo/seq)")) seq)
 	# Active Interfaces:$(get_networks)
 	#------------------------------------------------------------------
 	EOF
