@@ -48,7 +48,7 @@ def dupplicate_path(paths):
 
 
 
-p=["/etc","/etc", "/var/log", "/var/spool", "/usr/local/sbin", "/var"]
+p=["/etc", "/var/log", "/var/spool"]
 # p += "/home/ggjulio/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games".split(sep=':')
 p += os.environ["PATH"].split(sep=':')
 #p+=["/var/log"]
