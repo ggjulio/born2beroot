@@ -1,9 +1,8 @@
- 1.1.1.1, 8.8.8.8, 8.8.4.4
 ### credentials
 - partition encryption: qwerty
 - user unix:
-	- root: qwerty
-	- juligonz: qwerty
+	- root: PwpZ63H#Pz
+	- juligonz: wq1@aQP7hH
 	- user1: 1Aa2021_42
 
 - mysql users:
@@ -15,7 +14,7 @@
 
 ### Todo
 
-- [ ] change ALL PASSWORDS MORON !
+- [x] change ALL PASSWORDS MORON !
 - [x] 2 encrypted partitions root and home
 	- [x] or bonus...
 - [x] AppArmor must run at startup 
@@ -106,7 +105,3 @@
  badpass_message
  iolog_dir ???
  iolog_file
-
-PB:
-- vcpu
-- add seq to sudo count ! (maxseq...)
