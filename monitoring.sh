@@ -16,7 +16,9 @@ is_lvm_used(){
 }
 
 get_mem_usage(){
-	echo "$(free -h | grep 'Mem:' | awk '{printf "%s /%s (%.0f%% used)", $3, $2, $3/$2*100}')"
+	local percent="$(free | grep 'Mem:' | awk '{printf "%f", $3/$2*100}')"
+	echo "$(free -h | grep 'Mem:' \
+			| awk -v percent="$percent" '{printf "%s /%s (%.1f%% used)", $3, $2, percent}')"
 }
 
 get_disk_usage(){

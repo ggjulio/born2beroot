@@ -6,6 +6,7 @@ def scantree(path):
 	"""Recursively yield DirEntry objects for given directory."""
 	for entry in os.scandir(path):
 		if entry.is_dir(follow_symlinks=False):
+			print("   "+entry.path+'/*')
 			yield from scantree(entry.path)
 		else:
 			yield entry
@@ -22,8 +23,6 @@ def  hashtrees(paths, buf_size=128 * 500):
 				with open(entry.path, 'rb') as f:
 					while data := f.read(buf_size):
 						sha1.update(data)
-			elif entry.is_dir():
-				print("   "+entry.path+'/')
 
 	return sha1.hexdigest(), read_bytes
 
